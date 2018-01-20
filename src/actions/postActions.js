@@ -40,7 +40,7 @@ export function addPost(postData: object) {
     category,
   }
   return (dispatch) => {
-    fetch(`${api}/post`, {
+    fetch(`${URL}/post`, {
       method: 'POST',
       headers: {
         ...HEADER,
@@ -61,7 +61,7 @@ export function addPost(postData: object) {
 //@flow
 export function votePost(postId: string, option: string) {
   return (dispatch) => {
-    fetch(`${api}/posts/${postId}`, {
+    fetch(`${URL}/posts/${postId}`, {
       method: 'POST',
       headers: {
         ...HEADER,

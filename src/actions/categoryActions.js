@@ -1,15 +1,15 @@
-import {
-  URL,
-  getUUID,
-  HEADER,
-  GET_CATEGORIES,
-  GET_CATEGORIES_POSTS,
-} from './constants'
-import { getCategories } from '../utils/api'
+import { URL, HEADER, GET_CATEGORIES, GET_CATEGORIES_POSTS } from './constants'
+
+const head = {
+  Accept: 'application/json',
+  Authorization: 'token',
+}
 
 export function getCategories() {
+  console.log(head)
+
   return (dispatch) =>
-    fetch(`${URL}/categories`, { HEADER })
+    fetch(`${URL}/categories`, head)
       .then((res) => res.json())
       .then((data) =>
         dispatch({ type: GET_CATEGORIES, payload: data.categories })

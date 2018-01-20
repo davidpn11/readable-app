@@ -3,7 +3,7 @@ import { uuid } from 'uuid'
 export const URL = 'http://localhost:3001'
 export const HEADER = {
   Accept: 'application/json',
-  Authorization: '123456',
+  Authorization: 'token',
 }
 export function getUUID() {
   return uuid.uuid()
