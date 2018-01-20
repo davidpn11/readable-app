@@ -5,7 +5,7 @@ const INITIAL_STATE = {}
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_CATEGORIES:
-      return action.payload.categories
+      return action.payload
     case GET_CATEGORIES_POSTS:
       return action.payload
     default:

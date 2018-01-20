@@ -1,7 +1,7 @@
 import {
   URL,
   getUUID,
-  HEADER,
+  headers,
   GET_POSTS,
   ADD_POST,
   GET_SINGLE_POST,
@@ -12,7 +12,7 @@ import {
 
 export function getPosts() {
   return (dispatch) => {
-    fetch(`${URL}/posts`, { HEADER })
+    fetch(`${URL}/posts`, { headers })
       .then((res) => res.json())
       .then((data) => dispatch({ type: GET_POSTS, payload: data }))
       .catch((err) => console.error(err))
@@ -21,7 +21,7 @@ export function getPosts() {
 
 export function getSinglePost(postId) {
   return (dispatch) => {
-    fetch(`${URL}/posts/${postId}`, { HEADER })
+    fetch(`${URL}/posts/${postId}`, { headers })
       .then((res) => dispatch({ type: GET_SINGLE_POST, payload: res.json() }))
       .catch((err) => console.error(err))
   }
@@ -42,8 +42,8 @@ export function addPost(postData: object) {
   return (dispatch) => {
     fetch(`${URL}/post`, {
       method: 'POST',
-      headers: {
-        ...HEADER,
+      headerss: {
+        ...headers,
         'Content-Type': 'application/json',
       },
       body: data,
@@ -63,8 +63,8 @@ export function votePost(postId: string, option: string) {
   return (dispatch) => {
     fetch(`${URL}/posts/${postId}`, {
       method: 'POST',
-      headers: {
-        ...HEADER,
+      headerss: {
+        ...headers,
         'Content-Type': 'text/plain',
       },
       body: option,

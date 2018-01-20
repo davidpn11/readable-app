@@ -1,10 +1,17 @@
 import { uuid } from 'uuid'
 
 export const URL = 'http://localhost:3001'
-export const HEADER = {
+let token = localStorage.token
+if (!token)
+  token = localStorage.token = Math.random()
+    .toString(36)
+    .substr(-8)
+
+export const headers = {
+  Authorization: token,
   Accept: 'application/json',
-  Authorization: 'token',
 }
+
 export function getUUID() {
   return uuid.uuid()
 }
