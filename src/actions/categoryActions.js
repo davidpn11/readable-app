@@ -1,5 +1,5 @@
 import { URL, headers, GET_CATEGORIES, GET_CATEGORIES_POSTS } from './constants'
-
+//@flow
 export function getCategories() {
   return (dispatch) =>
     fetch(`${URL}/categories`, { headers })
@@ -10,7 +10,6 @@ export function getCategories() {
       .catch((err) => console.error(err))
 }
 
-//@flow
 export function getCategoriesPosts(categoryId: string) {
   return (dispatch) => {
     fetch(`${URL}/${categoryId}/posts}`, { headers })
