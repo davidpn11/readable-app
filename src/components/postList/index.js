@@ -18,7 +18,7 @@ class PostList extends Component {
   getPostList = () => {
     const { posts } = this.props
     return _.map(posts, (post) => (
-      <ListItem>
+      <ListItem key={post.title}>
         <Card>
           <h2>{post.title}</h2>
         </Card>
@@ -36,7 +36,6 @@ class PostList extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('posts', state.posts)
   return { posts: state.posts }
 }
 

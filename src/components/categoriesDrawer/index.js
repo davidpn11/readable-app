@@ -46,7 +46,6 @@ class categoriesDrawer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state)
   return { categories: state.categories }
 }
 
