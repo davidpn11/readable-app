@@ -1,53 +1,40 @@
 import React, { Component } from 'react'
-import logo from 'images/logo.svg'
-import { connect } from 'react-redux'
 import './App.css'
-import { getCategories } from 'actions'
-import * as _ from 'lodash'
-import PropTypes from 'prop-types'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import ContentInbox from 'material-ui/svg-icons/content/inbox'
 import AppBar from 'material-ui/AppBar'
-import FontIcon from 'material-ui/FontIcon'
 import FilterIcon from 'material-ui/svg-icons/content/filter-list'
 import IconButton from 'material-ui/IconButton'
-
+import CategoriesDrawer from '../categoriesDrawer'
+import PostList from '../postList'
 class App extends Component {
-  static propTypes = {
-    categories: PropTypes.any,
-    getCategories: PropTypes.func.isRequired,
+  state = {
+    isOpen: false,
   }
 
-  componentWillMount() {
-    this.props.getCategories()
-  }
+  handleFilterClick = () => this.setState({ isOpen: !this.state.isOpen })
+  toggleDrawer = () => this.setState({ isOpen: !this.state.isOpen })
 
   render() {
-    const iconStyles = {
-      fontSize: 36,
-    }
-
-    const { categories } = this.props
-    console.log(this.props)
     return (
       <MuiThemeProvider>
         <AppBar
           title="Readable"
+          onTitleClick={this.handleFilterClick}
           showMenuIconButton={false}
           iconElementRight={
-            <IconButton>
+            <IconButton onClick={this.handleFilterClick}>
               <FilterIcon />
             </IconButton>
           }
         />
+        <CategoriesDrawer
+          isOpen={this.state.isOpen}
+          toggleDrawer={this.toggleDrawer}
+        />
+        <PostList />
       </MuiThemeProvider>
     )
   }
 }
 
-function mapStateToProps(state) {
-  console.log(state)
-  return { categories: state.categories }
-}
-
-export default connect(mapStateToProps, { getCategories })(App)
+export default App
