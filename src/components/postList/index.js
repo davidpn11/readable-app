@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getPosts } from 'actions'
 import PropTypes from 'prop-types'
 import * as _ from 'lodash'
-import PostItem from '../postItem'
+import PostItem from 'components/postItem'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
 

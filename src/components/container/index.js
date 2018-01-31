@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar'
 import FilterIcon from 'material-ui/svg-icons/content/filter-list'
 import IconButton from 'material-ui/IconButton'
-import CategoriesDrawer from '../categoriesDrawer'
-import PostList from '../postList'
+import CategoriesDrawer from 'components/categoriesDrawer'
+import PostList from 'components/postList'
 
 class Container extends Component {
   state = {
