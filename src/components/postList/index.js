@@ -7,12 +7,18 @@ import PostItem from 'components/postItem'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
 
-const PList = styled(List)`
+const PList = styled.ul`
+  list-style-type: none;
   width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `
+const PItem = styled.li`
+  list-style-type: none;
+  width: 100%;
+`
+
 class PostList extends Component {
   static propTypes = {
     posts: PropTypes.any,
@@ -25,15 +31,15 @@ class PostList extends Component {
   getPostList = () => {
     const { posts } = this.props
     return _.map(posts, (post) => (
-      <ListItem key={post.title}>
+      <PItem key={post.title}>
         <PostItem postData={post} />
-      </ListItem>
+      </PItem>
     ))
   }
 
   render() {
     return (
-      <div>
+      <div className="teste">
         <PList>{this.getPostList()}</PList>
       </div>
     )
