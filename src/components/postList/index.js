@@ -19,6 +19,11 @@ const PItem = styled.li`
   width: 100%;
 `
 
+const ListWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 class PostList extends Component {
   static propTypes = {
     posts: PropTypes.any,
@@ -39,9 +44,9 @@ class PostList extends Component {
 
   render() {
     return (
-      <div className="teste">
+      <ListWrapper>
         <PList>{this.getPostList()}</PList>
-      </div>
+      </ListWrapper>
     )
   }
 }

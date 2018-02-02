@@ -4,9 +4,18 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
 import './postItem.css'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentRemove from 'material-ui/svg-icons/content/remove'
+import { green400, red400 } from 'material-ui/styles/colors'
+
 const Post = styled(Card)`
   margin-bottom: 15px;
 `
+
+const style = {
+  marginBottom: 10,
+}
 
 class postItem extends Component {
   static propTypes = {
@@ -56,8 +65,16 @@ class postItem extends Component {
             </div>
             <div className="upvote">
               <div className="vote-wrapper">
-                <i className="material-icons">keyboard_arrow_up</i>
-                <i className="material-icons">keyboard_arrow_down</i>
+                <FloatingActionButton
+                  style={style}
+                  backgroundColor={green400}
+                  mini={true}
+                >
+                  <ContentAdd />
+                </FloatingActionButton>
+                <FloatingActionButton backgroundColor={red400} mini={true}>
+                  <ContentRemove />
+                </FloatingActionButton>
               </div>
               <span className="vote-count">{voteScore}</span>
             </div>
