@@ -21,6 +21,15 @@ class postItem extends Component {
   static propTypes = {
     postData: PropTypes.object.isRequired,
   }
+
+  upvotePost = () => {
+    console.log('upvote')
+  }
+
+  downvotePost = () => {
+    console.log('downvote')
+  }
+
   render() {
     const {
       title,
@@ -69,10 +78,15 @@ class postItem extends Component {
                   style={style}
                   backgroundColor={green400}
                   mini={true}
+                  onClick={this.upvotePost()}
                 >
                   <ContentAdd />
                 </FloatingActionButton>
-                <FloatingActionButton backgroundColor={red400} mini={true}>
+                <FloatingActionButton
+                  onClick={this.downvotePost()}
+                  backgroundColor={red400}
+                  mini={true}
+                >
                   <ContentRemove />
                 </FloatingActionButton>
               </div>
