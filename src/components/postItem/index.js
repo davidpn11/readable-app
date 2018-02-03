@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { getCategoriesPosts } from 'actions'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
@@ -20,6 +22,7 @@ const style = {
 class postItem extends Component {
   static propTypes = {
     postData: PropTypes.object.isRequired,
+    getCategoriesPosts: PropTypes.func.isRequired,
   }
 
   upvotePost = () => {
@@ -44,7 +47,6 @@ class postItem extends Component {
     let date = new Date(timestamp)
     let formatedDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`
     // Hours part from the timestamp
-    console.log(formatedDate)
     return (
       <Post>
         <CardHeader
@@ -58,7 +60,12 @@ class postItem extends Component {
           <div className="post-wrapper">
             <span className="date">{formatedDate}</span>
             <div>
-              <span className="category">{category}</span>
+              <span
+                className="category"
+                onClick={() => this.props.getCategoriesPosts(category)}
+              >
+                {category}
+              </span>
               <span className="comments">
                 {commentCount} comments
                 <i className="material-icons">keyboard_arrow_right</i>
@@ -99,4 +106,8 @@ class postItem extends Component {
   }
 }
 
-export default postItem
+function mapStateToProps(state) {
+  return
+}
+
+export default connect(mapStateToProps, { getCategoriesPosts })(postItem)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories } from 'actions'
+import { getCategories, getCategoriesPosts, getPosts } from 'actions'
 import * as _ from 'lodash'
 import PropTypes from 'prop-types'
 import Drawer from 'material-ui/Drawer'
@@ -15,6 +15,8 @@ class categoriesDrawer extends Component {
     getCategories: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,
     toggleDrawer: PropTypes.func.isRequired,
+    getCategoriesPosts: PropTypes.func.isRequired,
+    getPosts: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
@@ -24,8 +26,22 @@ class categoriesDrawer extends Component {
   getCategoriesList = () => {
     const { categories } = this.props
     return _.map(categories, (category) => (
-      <ListItem key={category.name} primaryText={category.name} />
+      <ListItem
+        key={category.name}
+        primaryText={category.name}
+        onClick={() => this.updatePosts(category.name)}
+      />
     ))
+  }
+
+  updatePosts(category?) {
+    const { getCategoriesPosts, getPosts, toggleDrawer } = this.props
+    if (category) {
+      getCategoriesPosts(category)
+    } else {
+      getPosts()
+    }
+    toggleDrawer()
   }
 
   render() {
@@ -39,7 +55,14 @@ class categoriesDrawer extends Component {
             </IconButton>
           }
         />
-        <List>{this.getCategoriesList()}</List>
+        <List>
+          <ListItem
+            key="All"
+            primaryText="All posts"
+            onClick={() => this.updatePosts()}
+          />
+          {this.getCategoriesList()}
+        </List>
       </Drawer>
     )
   }
@@ -49,4 +72,8 @@ function mapStateToProps(state) {
   return { categories: state.categories }
 }
 
-export default connect(mapStateToProps, { getCategories })(categoriesDrawer)
+export default connect(mapStateToProps, {
+  getCategories,
+  getCategoriesPosts,
+  getPosts,
+})(categoriesDrawer)

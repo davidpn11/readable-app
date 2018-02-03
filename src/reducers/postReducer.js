@@ -1,5 +1,6 @@
 import {
   GET_POSTS,
+  GET_CATEGORIES_POSTS,
   ADD_POST,
   GET_SINGLE_POST,
   VOTE_POST,
@@ -12,6 +13,9 @@ const INITIAL_STATE = {}
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_POSTS:
+      return action.payload
+    case GET_CATEGORIES_POSTS:
+      console.log(action)
       return action.payload
     case ADD_POST:
       return action.payload
