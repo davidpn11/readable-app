@@ -10,6 +10,7 @@ if (!token)
 export const headers = {
   Authorization: token,
   Accept: 'application/json',
+  'Content-type': 'application/json',
 }
 
 export function getUUID() {

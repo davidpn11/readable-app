@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getCategoriesPosts } from 'actions'
+import { getCategoriesPosts, votePost } from 'actions'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
@@ -23,18 +23,20 @@ class postItem extends Component {
   static propTypes = {
     postData: PropTypes.object.isRequired,
     getCategoriesPosts: PropTypes.func.isRequired,
+    votePost: PropTypes.func.isRequired,
   }
 
-  upvotePost = () => {
-    console.log('upvote')
+  upvotePost = (id) => {
+    this.props.votePost(id, 'upVote')
   }
 
-  downvotePost = () => {
-    console.log('downvote')
+  downvotePost = (id) => {
+    console.log(this.props)
   }
 
   render() {
     const {
+      id,
       title,
       author,
       timestamp,
@@ -85,12 +87,12 @@ class postItem extends Component {
                   style={style}
                   backgroundColor={green400}
                   mini={true}
-                  onClick={this.upvotePost()}
+                  onClick={() => this.props.votePost(id, 'upVote')}
                 >
                   <ContentAdd />
                 </FloatingActionButton>
                 <FloatingActionButton
-                  onClick={this.downvotePost()}
+                  onClick={() => this.props.votePost(id, 'downVote')}
                   backgroundColor={red400}
                   mini={true}
                 >
@@ -107,7 +109,10 @@ class postItem extends Component {
 }
 
 function mapStateToProps(state) {
-  return
+  console.log('stateee')
+  return state
 }
 
-export default connect(mapStateToProps, { getCategoriesPosts })(postItem)
+export default connect(mapStateToProps, { getCategoriesPosts, votePost })(
+  postItem
+)

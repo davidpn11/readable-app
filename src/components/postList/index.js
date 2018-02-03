@@ -52,6 +52,7 @@ class PostList extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('postList', state)
   return { posts: state.posts }
 }
 

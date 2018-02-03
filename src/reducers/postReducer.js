@@ -15,14 +15,18 @@ export default function(state = INITIAL_STATE, action) {
     case GET_POSTS:
       return action.payload
     case GET_CATEGORIES_POSTS:
-      console.log(action)
       return action.payload
     case ADD_POST:
       return action.payload
     case GET_SINGLE_POST:
       return action.payload
     case VOTE_POST:
-      return action.payload
+      return state.map((post) => {
+        if (post.id === action.payload.id) {
+          post.voteScore = action.payload.voteScore
+        }
+        return post
+      })
     case EDIT_POST:
       return action.payload
     case DELETE_POST:

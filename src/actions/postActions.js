@@ -42,7 +42,7 @@ export function addPost(postData: object) {
   return (dispatch) => {
     fetch(`${URL}/post`, {
       method: 'POST',
-      headerss: {
+      headers: {
         ...headers,
         'Content-Type': 'application/json',
       },
@@ -62,14 +62,14 @@ export function addPost(postData: object) {
 export function votePost(postId: string, option: string) {
   return (dispatch) => {
     fetch(`${URL}/posts/${postId}`, {
+      headers: headers,
       method: 'POST',
-      headerss: {
-        ...headers,
-        'Content-Type': 'text/plain',
-      },
-      body: option,
+      body: JSON.stringify({ option }),
     })
       .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: VOTE_POST, payload: data })
+      })
       .catch((err) => console.error(err))
   }
 }
