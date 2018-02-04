@@ -40,18 +40,16 @@ export function addPost(postData: object) {
     category,
   }
   return (dispatch) => {
-    fetch(`${URL}/post`, {
+    fetch(`${URL}/posts`, {
       method: 'POST',
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      body: data,
+      headers: headers,
+      body: JSON.stringify(data),
     })
-      .then((res) =>
+      .then((res) => res.json())
+      .then((data) =>
         dispatch({
           type: ADD_POST,
-          payload: res,
+          payload: data,
         })
       )
       .catch((err) => console.error(err))

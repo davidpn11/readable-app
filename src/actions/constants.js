@@ -1,4 +1,4 @@
-import { uuid } from 'uuid'
+import uuid from 'uuid'
 
 export const URL = 'http://localhost:3001'
 let token = localStorage.token
@@ -14,7 +14,7 @@ export const headers = {
 }
 
 export function getUUID() {
-  return uuid.uuid()
+  return uuid.v4()
 }
 
 //ACTIONS
