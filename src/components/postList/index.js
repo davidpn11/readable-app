@@ -52,11 +52,15 @@ class PostList extends Component {
 
   getPostList = () => {
     const { posts } = this.props
-    return _.map(posts, (post) => (
-      <PItem key={post.title}>
-        <PostItem postData={post} />
-      </PItem>
-    ))
+    return _.map(posts, (post) => {
+      if (!post.deleted) {
+        return (
+          <PItem key={post.title}>
+            <PostItem postData={post} />
+          </PItem>
+        )
+      }
+    })
   }
 
   render() {

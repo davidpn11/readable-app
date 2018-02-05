@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getCategoriesPosts, votePost } from 'actions'
+import { getCategoriesPosts, votePost, deletePost } from 'actions'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
@@ -32,6 +32,7 @@ class postItem extends Component {
     postData: PropTypes.object.isRequired,
     getCategoriesPosts: PropTypes.func.isRequired,
     votePost: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
   }
 
   render() {
@@ -61,7 +62,11 @@ class postItem extends Component {
         <CardText>
           <div className="post-wrapper">
             <ActionSpan>
-              <ActionDelete color={red400} /> <ActionEdit color={blue400} />
+              <ActionDelete
+                color={red400}
+                onClick={() => this.props.deletePost(id)}
+              />{' '}
+              <ActionEdit color={blue400} />
             </ActionSpan>
             <span className="date">{formatedDate}</span>
             <div>
@@ -116,6 +121,8 @@ function mapStateToProps(state) {
   return state
 }
 
-export default connect(mapStateToProps, { getCategoriesPosts, votePost })(
-  postItem
-)
+export default connect(mapStateToProps, {
+  getCategoriesPosts,
+  votePost,
+  deletePost,
+})(postItem)

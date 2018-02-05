@@ -31,6 +31,12 @@ export default function(state = INITIAL_STATE, action) {
     case EDIT_POST:
       return action.payload
     case DELETE_POST:
+      return state.map((post) => {
+        if (post.id === action.payload.id) {
+          post = action.payload
+        }
+        return post
+      })
       return action.payload
     default:
       return state

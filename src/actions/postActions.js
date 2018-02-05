@@ -71,3 +71,16 @@ export function votePost(postId: string, option: string) {
       .catch((err) => console.error(err))
   }
 }
+//@flow
+export function deletePost(postId: string) {
+  return (dispatch) => {
+    fetch(`${URL}/posts/${postId}`, {
+      headers: headers,
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: DELETE_POST, payload: data })
+      })
+  }
+}
