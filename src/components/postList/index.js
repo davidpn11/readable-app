@@ -6,6 +6,9 @@ import * as _ from 'lodash'
 import PostItem from 'components/postItem'
 import { List, ListItem } from 'material-ui/List'
 import styled from 'styled-components'
+import PostModal from 'components/PostModal'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 const PList = styled.ul`
   list-style-type: none;
@@ -24,6 +27,12 @@ const ListWrapper = styled.div`
   justify-content: center;
 `
 
+const fabStyle = {
+  position: 'fixed',
+  right: '30px',
+  bottom: '30px',
+}
+
 class PostList extends Component {
   static propTypes = {
     posts: PropTypes.any,
@@ -31,6 +40,14 @@ class PostList extends Component {
   }
   componentWillMount() {
     this.props.getPosts()
+  }
+
+  state = {
+    isModalOpen: false,
+  }
+
+  toggleModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen })
   }
 
   getPostList = () => {
@@ -44,9 +61,18 @@ class PostList extends Component {
 
   render() {
     return (
-      <ListWrapper>
-        <PList>{this.getPostList()}</PList>
-      </ListWrapper>
+      <div>
+        <ListWrapper>
+          <PList>{this.getPostList()}</PList>
+        </ListWrapper>
+        <PostModal
+          isOpen={this.state.isModalOpen}
+          toggleModal={this.toggleModal}
+        />
+        <FloatingActionButton style={fabStyle} onClick={this.toggleModal}>
+          <ContentAdd />
+        </FloatingActionButton>
+      </div>
     )
   }
 }

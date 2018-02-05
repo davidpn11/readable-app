@@ -9,10 +9,18 @@ import './postItem.css'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentRemove from 'material-ui/svg-icons/content/remove'
-import { green400, red400 } from 'material-ui/styles/colors'
+import ActionDelete from 'material-ui/svg-icons/action/delete'
+import ActionEdit from 'material-ui/svg-icons/image/edit'
+import { green400, red400, blue400 } from 'material-ui/styles/colors'
 
 const Post = styled(Card)`
   margin-bottom: 15px;
+`
+
+const ActionSpan = styled.span`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
 `
 
 const style = {
@@ -24,14 +32,6 @@ class postItem extends Component {
     postData: PropTypes.object.isRequired,
     getCategoriesPosts: PropTypes.func.isRequired,
     votePost: PropTypes.func.isRequired,
-  }
-
-  upvotePost = (id) => {
-    this.props.votePost(id, 'upVote')
-  }
-
-  downvotePost = (id) => {
-    console.log(this.props)
   }
 
   render() {
@@ -60,6 +60,9 @@ class postItem extends Component {
         />
         <CardText>
           <div className="post-wrapper">
+            <ActionSpan>
+              <ActionDelete color={red400} /> <ActionEdit color={blue400} />
+            </ActionSpan>
             <span className="date">{formatedDate}</span>
             <div>
               <span
