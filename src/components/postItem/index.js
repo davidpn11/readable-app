@@ -21,9 +21,10 @@ const ActionSpan = styled.span`
   display: flex;
   flex-direction: row;
   cursor: pointer;
+  justify-content: flex-end;
 `
 
-const style = {
+const fabStyle = {
   marginBottom: 10,
 }
 
@@ -96,7 +97,7 @@ class postItem extends Component {
             <div className="upvote">
               <div className="vote-wrapper">
                 <FloatingActionButton
-                  style={style}
+                  style={fabStyle}
                   backgroundColor={green400}
                   mini={true}
                   onClick={() => this.props.votePost(id, 'upVote')}

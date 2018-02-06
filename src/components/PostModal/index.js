@@ -44,11 +44,11 @@ const modalStyle = {
     backgroundColor: 'rgba(30,30,30, 0.75)',
   },
   content: {
-    position: 'absolute',
+    position: 'relative',
     width: '400px',
     top: '100px',
+    maxHeight: '100%',
     bottom: '40px',
-    maxHeight: '40%',
     margin: 'auto',
     border: '1px solid #ccc',
     background: '#fff',
@@ -138,58 +138,61 @@ class PostModal extends Component {
           style={modalStyle}
           contentLabel="Modal"
         >
-          <PostForm onSubmit={this.submitPost}>
-            <TextField
-              id="title"
-              defaultValue={this.state.title}
-              floatingLabelText="Title"
-              fullWidth={true}
-              onChange={this.handleChange}
-            />
-            <TextField
-              id="body"
-              defaultValue={this.state.body}
-              floatingLabelText="Text"
-              multiLine={true}
-              fullWidth={true}
-              onChange={this.handleChange}
-            />
-            {!this.props.editPostData && (
-              <div>
-                <TextField
-                  id="author"
-                  defaultValue={this.state.author}
-                  floatingLabelText="Author"
-                  fullWidth={true}
-                  onChange={this.handleChange}
-                />
-                <SelectField
-                  floatingLabelText="Category"
-                  value={this.state.category}
-                  fullWidth={true}
-                  onChange={this.handleSelectChange}
-                >
-                  {_.map(this.props.categories, (category) => (
-                    <MenuItem
-                      key={category.name}
-                      value={category.name}
-                      primaryText={category.name}
-                    />
-                  ))}
-                </SelectField>
-              </div>
-            )}
-            <RaisedButton
-              label="SUBMIT"
-              style={submitStyle}
-              primary={true}
-              type="submit"
-              disabled={this.checkForm()}
-            />
-          </PostForm>
-          <CloseSpan onClick={this.props.toggleModal}>
-            <NavigationClose />
-          </CloseSpan>
+          <div>
+            <PostForm onSubmit={this.submitPost}>
+              <TextField
+                id="title"
+                defaultValue={this.state.title}
+                floatingLabelText="Title"
+                fullWidth={true}
+                onChange={this.handleChange}
+              />
+              <TextField
+                id="body"
+                defaultValue={this.state.body}
+                floatingLabelText="Text"
+                multiLine={true}
+                fullWidth={true}
+                rowsMax={6}
+                onChange={this.handleChange}
+              />
+              {!this.props.editPostData && (
+                <div>
+                  <TextField
+                    id="author"
+                    defaultValue={this.state.author}
+                    floatingLabelText="Author"
+                    fullWidth={true}
+                    onChange={this.handleChange}
+                  />
+                  <SelectField
+                    floatingLabelText="Category"
+                    value={this.state.category}
+                    fullWidth={true}
+                    onChange={this.handleSelectChange}
+                  >
+                    {_.map(this.props.categories, (category) => (
+                      <MenuItem
+                        key={category.name}
+                        value={category.name}
+                        primaryText={category.name}
+                      />
+                    ))}
+                  </SelectField>
+                </div>
+              )}
+              <RaisedButton
+                label="SUBMIT"
+                style={submitStyle}
+                primary={true}
+                type="submit"
+                disabled={this.checkForm()}
+              />
+            </PostForm>
+            <CloseSpan onClick={this.props.toggleModal}>
+              <NavigationClose />
+            </CloseSpan>
+          </div>
         </Modal>
       </div>
     )
