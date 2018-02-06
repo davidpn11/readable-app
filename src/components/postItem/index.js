@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getCategoriesPosts, votePost, deletePost } from 'actions'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
@@ -81,10 +82,12 @@ class postItem extends Component {
               >
                 {category}
               </span>
-              <span className="comments">
-                {commentCount} comments
-                <i className="material-icons">keyboard_arrow_right</i>
-              </span>
+              <Link to={`/comments/${id}`}>
+                <span className="comments">
+                  {commentCount} comments
+                  <i className="material-icons">keyboard_arrow_right</i>
+                </span>
+              </Link>
             </div>
           </div>
         </CardText>
