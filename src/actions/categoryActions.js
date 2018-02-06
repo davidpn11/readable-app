@@ -12,7 +12,6 @@ export function getCategories() {
 
 export function getCategoriesPosts(categoryId: string) {
   return (dispatch) => {
-    console.log(`${URL}/${categoryId}/posts`)
     fetch(`${URL}/${categoryId}/posts`, { headers })
       .then((res) => res.json())
       .then((data) => dispatch({ type: GET_CATEGORIES_POSTS, payload: data }))

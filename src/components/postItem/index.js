@@ -112,7 +112,6 @@ class postItem extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('stateee')
   return state
 }
 
