@@ -35,7 +35,7 @@ class postItem extends Component {
     getCategoriesPosts: PropTypes.func.isRequired,
     votePost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
-    editPost: PropTypes.func.isRequired,
+    editPost: PropTypes.func,
   }
 
   render() {
