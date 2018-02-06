@@ -44,10 +44,18 @@ class PostList extends Component {
 
   state = {
     isModalOpen: false,
+    editedPost: undefined,
   }
 
   toggleModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen })
+    this.setState({
+      isModalOpen: !this.state.isModalOpen,
+      editedPost: undefined,
+    })
+  }
+
+  editPost = (editedPost) => {
+    this.setState({ isModalOpen: !this.state.isModalOpen, editedPost })
   }
 
   getPostList = () => {
@@ -56,7 +64,7 @@ class PostList extends Component {
       if (!post.deleted) {
         return (
           <PItem key={post.title}>
-            <PostItem postData={post} />
+            <PostItem postData={post} editPost={this.editPost} />
           </PItem>
         )
       }
@@ -72,6 +80,7 @@ class PostList extends Component {
         <PostModal
           isOpen={this.state.isModalOpen}
           toggleModal={this.toggleModal}
+          editPostData={this.state.editedPost}
         />
         <FloatingActionButton style={fabStyle} onClick={this.toggleModal}>
           <ContentAdd />
@@ -82,7 +91,6 @@ class PostList extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('postList', state)
   return { posts: state.posts }
 }
 

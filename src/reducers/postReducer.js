@@ -2,7 +2,6 @@ import {
   GET_POSTS,
   GET_CATEGORIES_POSTS,
   ADD_POST,
-  GET_SINGLE_POST,
   VOTE_POST,
   EDIT_POST,
   DELETE_POST,
@@ -19,8 +18,6 @@ export default function(state = INITIAL_STATE, action) {
     case ADD_POST:
       console.log(state, action)
       return state.concat(action.payload)
-    case GET_SINGLE_POST:
-      return action.payload
     case VOTE_POST:
       return state.map((post) => {
         if (post.id === action.payload.id) {
@@ -29,7 +26,13 @@ export default function(state = INITIAL_STATE, action) {
         return post
       })
     case EDIT_POST:
-      return action.payload
+      console.log(action.payload)
+      return state.map((post) => {
+        if (post.id === action.payload.id) {
+          post = action.payload
+        }
+        return post
+      })
     case DELETE_POST:
       return state.map((post) => {
         if (post.id === action.payload.id) {
@@ -37,7 +40,6 @@ export default function(state = INITIAL_STATE, action) {
         }
         return post
       })
-      return action.payload
     default:
       return state
   }

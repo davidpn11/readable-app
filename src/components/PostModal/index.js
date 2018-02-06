@@ -6,16 +6,17 @@ import styled from 'styled-components'
 import * as _ from 'lodash'
 import { connect } from 'react-redux'
 import uuid from 'uuid'
-import { getCategories, addPost } from 'actions'
+import { getCategories, addPost, editPost } from 'actions'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
 const PostForm = styled.form`
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `
 
 const CloseSpan = styled.span`
@@ -44,10 +45,10 @@ const modalStyle = {
   },
   content: {
     position: 'absolute',
-    width: '50%',
+    width: '400px',
     top: '100px',
     bottom: '40px',
-    height: '40%',
+    maxHeight: '40%',
     margin: 'auto',
     border: '1px solid #ccc',
     background: '#fff',
@@ -65,14 +66,15 @@ class PostModal extends Component {
     categories: PropTypes.any,
     getCategories: PropTypes.func.isRequired,
     addPost: PropTypes.func.isRequired,
+    editPost: PropTypes.func.isRequired,
+    editPostData: PropTypes.object,
   }
 
   state = {
     category: '',
     title: '',
     author: '',
-    text: '',
-    btnDisabled: true,
+    body: '',
   }
 
   constructor() {
@@ -84,11 +86,23 @@ class PostModal extends Component {
     this.props.getCategories()
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.editPostData == undefined) return
+
+    const { title, author, category, body } = nextProps.editPostData
+    this.setState({ title, author, category, body })
+  }
+
   submitPost = (event) => {
     event.preventDefault()
-    const { title, author, text, category } = this.state
-    const post = { title, author, text, category }
-    this.props.addPost(post)
+    const { title, author, body, category } = this.state
+    if (this.props.editPostData) {
+      const post = { title, body }
+      this.props.editPost(this.props.editPostData.id, post)
+    } else {
+      const post = { title, author, body, category }
+      this.props.addPost(post)
+    }
     this.props.toggleModal()
   }
 
@@ -103,21 +117,20 @@ class PostModal extends Component {
   }
 
   checkForm = () => {
-    const { title, author, text, category } = this.state
+    const { title, author, body, category } = this.state
     if (
       title.length === 0 ||
       author.length === 0 ||
-      text.length === 0 ||
+      body.length === 0 ||
       category.length === 0
     ) {
-      !this.state.btnDisabled && this.setState({ btnDisabled: true })
+      return true
     } else {
-      this.state.btnDisabled && this.setState({ btnDisabled: false })
+      return false
     }
   }
 
   render() {
-    this.checkForm()
     return (
       <div>
         <Modal
@@ -128,39 +141,50 @@ class PostModal extends Component {
           <PostForm onSubmit={this.submitPost}>
             <TextField
               id="title"
+              defaultValue={this.state.title}
               floatingLabelText="Title"
+              fullWidth={true}
               onChange={this.handleChange}
             />
             <TextField
-              id="author"
-              floatingLabelText="Author"
-              onChange={this.handleChange}
-            />
-            <TextField
-              id="text"
+              id="body"
+              defaultValue={this.state.body}
               floatingLabelText="Text"
               multiLine={true}
+              fullWidth={true}
               onChange={this.handleChange}
             />
-            <SelectField
-              floatingLabelText="Category"
-              value={this.state.category}
-              onChange={this.handleSelectChange}
-            >
-              {_.map(this.props.categories, (category) => (
-                <MenuItem
-                  key={category.name}
-                  value={category.name}
-                  primaryText={category.name}
+            {!this.props.editPostData && (
+              <div>
+                <TextField
+                  id="author"
+                  defaultValue={this.state.author}
+                  floatingLabelText="Author"
+                  fullWidth={true}
+                  onChange={this.handleChange}
                 />
-              ))}
-            </SelectField>
+                <SelectField
+                  floatingLabelText="Category"
+                  value={this.state.category}
+                  fullWidth={true}
+                  onChange={this.handleSelectChange}
+                >
+                  {_.map(this.props.categories, (category) => (
+                    <MenuItem
+                      key={category.name}
+                      value={category.name}
+                      primaryText={category.name}
+                    />
+                  ))}
+                </SelectField>
+              </div>
+            )}
             <RaisedButton
               label="SUBMIT"
               style={submitStyle}
               primary={true}
               type="submit"
-              disabled={this.state.btnDisabled}
+              disabled={this.checkForm()}
             />
           </PostForm>
           <CloseSpan onClick={this.props.toggleModal}>
@@ -176,4 +200,6 @@ function mapStateToProps(state) {
   return { categories: state.categories }
 }
 
-export default connect(mapStateToProps, { getCategories, addPost })(PostModal)
+export default connect(mapStateToProps, { getCategories, addPost, editPost })(
+  PostModal
+)

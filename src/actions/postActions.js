@@ -4,7 +4,6 @@ import {
   headers,
   GET_POSTS,
   ADD_POST,
-  GET_SINGLE_POST,
   VOTE_POST,
   EDIT_POST,
   DELETE_POST,
@@ -15,14 +14,6 @@ export function getPosts() {
     fetch(`${URL}/posts`, { headers })
       .then((res) => res.json())
       .then((data) => dispatch({ type: GET_POSTS, payload: data }))
-      .catch((err) => console.error(err))
-  }
-}
-
-export function getSinglePost(postId) {
-  return (dispatch) => {
-    fetch(`${URL}/posts/${postId}`, { headers })
-      .then((res) => dispatch({ type: GET_SINGLE_POST, payload: res.json() }))
       .catch((err) => console.error(err))
   }
 }
@@ -82,5 +73,21 @@ export function deletePost(postId: string) {
       .then((data) => {
         dispatch({ type: DELETE_POST, payload: data })
       })
+  }
+}
+
+export function editPost(postId: string, postData: object) {
+  const { title, body } = postData
+  return (dispatch) => {
+    fetch(`${URL}/posts/${postId}`, {
+      headers: headers,
+      method: 'PUT',
+      body: JSON.stringify({ title, body }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: EDIT_POST, payload: data })
+      })
+      .catch((err) => console.error(err))
   }
 }

@@ -33,6 +33,7 @@ class postItem extends Component {
     getCategoriesPosts: PropTypes.func.isRequired,
     votePost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
+    editPost: PropTypes.func.isRequired,
   }
 
   render() {
@@ -66,7 +67,10 @@ class postItem extends Component {
                 color={red400}
                 onClick={() => this.props.deletePost(id)}
               />{' '}
-              <ActionEdit color={blue400} />
+              <ActionEdit
+                color={blue400}
+                onClick={() => this.props.editPost(this.props.postData)}
+              />
             </ActionSpan>
             <span className="date">{formatedDate}</span>
             <div>
@@ -117,7 +121,6 @@ class postItem extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('stateee')
   return state
 }
 
