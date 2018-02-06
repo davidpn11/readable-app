@@ -16,7 +16,6 @@ export default function(state = INITIAL_STATE, action) {
     case GET_CATEGORIES_POSTS:
       return action.payload
     case ADD_POST:
-      console.log(state, action)
       return state.concat(action.payload)
     case VOTE_POST:
       return state.map((post) => {
