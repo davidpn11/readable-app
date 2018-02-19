@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './CommentItem.css'
 import * as _ from 'lodash'
-import compose from 'lodash/fp/compose'
-
+import { deleteComment, voteComment } from 'actions'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentRemove from 'material-ui/svg-icons/content/remove'
@@ -15,17 +15,19 @@ import { green400, red400, blue400 } from 'material-ui/styles/colors'
 class CommentItem extends Component {
   static propTypes = {
     commentData: PropTypes.object.isRequired,
+    voteComment: PropTypes.func.isRequired,
+    deleteComment: PropTypes.func.isRequired,
   }
 
   render() {
-    const { title, author, body, voteScore } = this.props.commentData
+    const { id, itle, author, body, voteScore } = this.props.commentData
     return (
       <div className="wrapper">
         <Card>
           <span className="actions-wrapper">
             <ActionDelete
               color={red400}
-              // onClick={() => this.props.deletePost(id)}
+              onClick={() => this.props.deleteComment(id)}
             />
             <ActionEdit
               color={blue400}
@@ -63,4 +65,10 @@ class CommentItem extends Component {
   }
 }
 
-export default CommentItem
+function mapStateToProps(state) {
+  return state
+}
+
+export default connect(mapStateToProps, { deleteComment, voteComment })(
+  CommentItem
+)

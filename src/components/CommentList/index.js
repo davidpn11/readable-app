@@ -37,9 +37,11 @@ class CommentList extends Component {
     const { comments } = this.props
     return (
       <ListWrapper>
-        {_.map(comments, (comment) => (
-          <CommentItem key={comment.id} commentData={comment} />
-        ))}
+        {_.map(comments, (comment) => {
+          if (!comment.deleted) {
+            return <CommentItem key={comment.id} commentData={comment} />
+          }
+        })}
       </ListWrapper>
     )
   }
