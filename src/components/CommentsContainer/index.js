@@ -7,6 +7,22 @@ import PropTypes from 'prop-types'
 import { URL, headers } from 'actions/constants'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import CommentList from 'components/CommentList'
+import styled from 'styled-components'
+import { cyan100 } from 'material-ui/styles/colors'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+
+const Wrapper = styled.div`
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`
+const fabStyle = {
+  position: 'fixed',
+  right: '30px',
+  bottom: '30px',
+}
 class CommentsContainer extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -38,15 +54,22 @@ class CommentsContainer extends Component {
             </Link>
           }
         />
-        <Card>
-          <CardHeader
-            title={title}
-            subtitle={author}
-            titleStyle={{ fontSize: 20 }}
-          />
-          <CardText>{body}</CardText>
-        </Card>
-        <CommentList postId={this.state.post.id || ''} />
+        <Wrapper>
+          <Card style={{ backgroundColor: cyan100 }}>
+            <CardHeader
+              title={title}
+              titleStyle={{ fontSize: 30 }}
+              subtitle={author}
+              subtitleStyle={{ fontSize: 20 }}
+            />
+            <CardText style={{ fontSize: 20 }}>{body}</CardText>
+          </Card>
+          <h2>Comments</h2>
+          <CommentList postId={this.state.post.id || ''} />
+          <FloatingActionButton style={fabStyle}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </Wrapper>
       </div>
     )
   }

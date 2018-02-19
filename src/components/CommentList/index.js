@@ -3,7 +3,13 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { getComments } from 'actions'
 import CommentItem from 'components/CommentItem'
+import styled from 'styled-components'
 import * as _ from 'lodash'
+
+const ListWrapper = styled.div`
+  margin-top: 20px;
+`
+
 class CommentList extends Component {
   static propTypes = {
     postId: PropTypes.string.isRequired,
@@ -30,11 +36,11 @@ class CommentList extends Component {
   render() {
     const { comments } = this.props
     return (
-      <div>
+      <ListWrapper>
         {_.map(comments, (comment) => (
           <CommentItem key={comment.id} commentData={comment} />
         ))}
-      </div>
+      </ListWrapper>
     )
   }
 }
