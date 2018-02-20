@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, GET_CATEGORIES_POSTS } from 'actions/constants'
+import { GET_CATEGORIES } from 'actions/constants'
 
 const INITIAL_STATE = {}
 

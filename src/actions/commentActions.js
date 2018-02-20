@@ -64,7 +64,6 @@ export function voteComment(commentId: string, option: string) {
 }
 //@flow
 export function deleteComment(commentId: string) {
-  console.log('deleteComment')
   return (dispatch) => {
     fetch(`${URL}/comments/${commentId}`, {
       headers: headers,
@@ -77,8 +76,7 @@ export function deleteComment(commentId: string) {
   }
 }
 
-export function editComment(commentId: string, commentData: object) {
-  const { body } = commentData
+export function editComment(commentId: string, body: string) {
   return (dispatch) => {
     fetch(`${URL}/comments/${commentId}`, {
       headers: headers,

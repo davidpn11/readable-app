@@ -10,7 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentSend from 'material-ui/svg-icons/content/send'
-
+import CommentModal from 'components/CommentModal'
 const ListWrapper = styled.div`
   margin-top: 20px;
 `
@@ -40,9 +40,11 @@ class CommentList extends Component {
   }
 
   state = {
+    isModalOpen: false,
     isLoaded: false,
     author: '',
     body: '',
+    commentData: {},
   }
 
   componentWillMount() {
@@ -75,12 +77,19 @@ class CommentList extends Component {
     this.setState({ body: '', author: '' })
   }
 
+  toggleModal = () => this.setState({ isModalOpen: !this.state.isModalOpen })
+
   checkForm = () => {
     if (this.state.author.length === 0 || this.state.body.length === 0) {
       return true
     } else {
       return false
     }
+  }
+
+  editComment = (commentData) => {
+    this.setState({ commentData })
+    this.toggleModal()
   }
 
   render() {
@@ -90,7 +99,13 @@ class CommentList extends Component {
         <ListWrapper>
           {_.map(comments, (comment) => {
             if (!comment.deleted) {
-              return <CommentItem key={comment.id} commentData={comment} />
+              return (
+                <CommentItem
+                  key={comment.id}
+                  commentData={comment}
+                  editComment={this.editComment}
+                />
+              )
             }
           })}
         </ListWrapper>
@@ -117,6 +132,11 @@ class CommentList extends Component {
             </FloatingActionButton>
           </form>
         </NewComment>
+        <CommentModal
+          isOpen={this.state.isModalOpen}
+          toggleModal={this.toggleModal}
+          commentData={this.state.commentData}
+        />
       </div>
     )
   }

@@ -34,6 +34,7 @@ const submitStyle = {
   display: 'flex',
   alignSelf: 'flex-end',
 }
+
 const modalStyle = {
   overlay: {
     position: 'fixed',
@@ -87,7 +88,7 @@ class PostModal extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.editPostData == undefined) return
+    if (nextProps.editPostData === undefined) return
 
     const { title, author, category, body } = nextProps.editPostData
     this.setState({ title, author, category, body })

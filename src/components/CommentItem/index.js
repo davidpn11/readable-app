@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import { Card, CardText } from 'material-ui/Card'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './CommentItem.css'
@@ -17,6 +17,7 @@ class CommentItem extends Component {
     commentData: PropTypes.object.isRequired,
     voteComment: PropTypes.func.isRequired,
     deleteComment: PropTypes.func.isRequired,
+    editComment: PropTypes.func.isRequired,
   }
 
   render() {
@@ -31,7 +32,7 @@ class CommentItem extends Component {
             />
             <ActionEdit
               color={blue400}
-              // onClick={() => this.props.editPost(this.props.postData)}
+              onClick={() => this.props.editComment(this.props.commentData)}
             />
           </span>
           <CardText>
