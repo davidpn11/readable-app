@@ -9,8 +9,6 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import CommentList from 'components/CommentList'
 import styled from 'styled-components'
 import { cyan100 } from 'material-ui/styles/colors'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
 
 const Wrapper = styled.div`
   width: 60%;
@@ -66,9 +64,6 @@ class CommentsContainer extends Component {
           </Card>
           <h2>Comments</h2>
           <CommentList postId={this.state.post.id || ''} />
-          <FloatingActionButton style={fabStyle}>
-            <ContentAdd />
-          </FloatingActionButton>
         </Wrapper>
       </div>
     )
