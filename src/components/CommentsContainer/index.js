@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { URL, headers } from 'actions/constants'
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import { Card, CardHeader, CardText } from 'material-ui/Card'
 import CommentList from 'components/CommentList'
 import styled from 'styled-components'
 import { cyan100 } from 'material-ui/styles/colors'
@@ -16,11 +16,6 @@ const Wrapper = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `
-const fabStyle = {
-  position: 'fixed',
-  right: '30px',
-  bottom: '30px',
-}
 class CommentsContainer extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,

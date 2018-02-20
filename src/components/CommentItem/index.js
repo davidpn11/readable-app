@@ -3,7 +3,6 @@ import { Card, CardText } from 'material-ui/Card'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './CommentItem.css'
-import * as _ from 'lodash'
 import { deleteComment, voteComment } from 'actions'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -21,7 +20,7 @@ class CommentItem extends Component {
   }
 
   render() {
-    const { id, itle, author, body, voteScore } = this.props.commentData
+    const { id, author, body, voteScore } = this.props.commentData
     return (
       <div className="wrapper">
         <Card>
