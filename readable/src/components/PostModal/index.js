@@ -82,7 +82,7 @@ class PostModal extends Component {
     Modal.setAppElement('body')
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCategories()
   }
 

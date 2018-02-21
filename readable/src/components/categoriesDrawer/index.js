@@ -19,7 +19,7 @@ class categoriesDrawer extends Component {
     getPosts: PropTypes.func.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCategories()
   }
 

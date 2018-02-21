@@ -45,7 +45,7 @@ class CommentList extends Component {
     commentData: {},
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const id = this.props.postId
     id && this.props.getComments(id)
   }

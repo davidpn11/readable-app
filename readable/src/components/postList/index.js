@@ -37,7 +37,7 @@ class PostList extends Component {
     posts: PropTypes.any,
     getPosts: PropTypes.func.isRequired,
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPosts()
   }
 

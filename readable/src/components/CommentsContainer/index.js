@@ -25,7 +25,7 @@ class CommentsContainer extends Component {
     post: {},
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const id = this.props.match.params.id
     fetch(`${URL}/posts/${id}`, { headers })
       .then((res) => res.json())

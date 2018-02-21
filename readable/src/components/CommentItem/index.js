@@ -44,13 +44,13 @@ class CommentItem extends Component {
                 <FloatingActionButton
                   backgroundColor={green400}
                   mini={true}
-                  // onClick={() => this.props.votePost(id, 'upVote')}
+                  onClick={() => this.props.voteComment(id, 'upVote')}
                 >
                   <ContentAdd />
                 </FloatingActionButton>
                 <span className="vote-count">{voteScore}</span>
                 <FloatingActionButton
-                  // onClick={() => this.props.votePost(id, 'downVote')}
+                  onClick={() => this.props.voteComment(id, 'downVote')}
                   backgroundColor={red400}
                   mini={true}
                 >
