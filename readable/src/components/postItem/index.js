@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getCategoriesPosts, votePost, deletePost } from 'actions'
+import { votePost, deletePost } from 'actions'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import styled from 'styled-components'
 import './postItem.css'
@@ -31,7 +31,6 @@ const fabStyle = {
 class postItem extends Component {
   static propTypes = {
     postData: PropTypes.object.isRequired,
-    getCategoriesPosts: PropTypes.func.isRequired,
     votePost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     editPost: PropTypes.func,
@@ -75,12 +74,9 @@ class postItem extends Component {
             </ActionSpan>
             <span className="date">{formatedDate}</span>
             <div>
-              <span
-                className="category"
-                onClick={() => this.props.getCategoriesPosts(category)}
-              >
-                {category}
-              </span>
+              <Link to={`/${category}`}>
+                <span className="category">{category}</span>
+              </Link>
               <Link to={`/comments/${id}`}>
                 <span className="comments">
                   {commentCount} comments
@@ -128,7 +124,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  getCategoriesPosts,
   votePost,
   deletePost,
 })(postItem)

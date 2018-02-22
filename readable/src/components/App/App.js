@@ -38,6 +38,11 @@ class App extends Component {
             <Route exact path="/" render={() => <PostContainer />} />
             <Route
               exact
+              path="/:category"
+              component={(props) => <PostContainer {...props} />}
+            />
+            <Route
+              exact
               path="/comments/:id"
               component={(props) => <CommentsContainer {...props} />}
             />

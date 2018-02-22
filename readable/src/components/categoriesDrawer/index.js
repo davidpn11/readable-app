@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getCategories, getCategoriesPosts, getPosts } from 'actions'
+import { getCategories } from 'actions'
+import { Link } from 'react-router-dom'
 import * as _ from 'lodash'
 import PropTypes from 'prop-types'
 import Drawer from 'material-ui/Drawer'
@@ -15,8 +16,6 @@ class categoriesDrawer extends Component {
     getCategories: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,
     toggleDrawer: PropTypes.func.isRequired,
-    getCategoriesPosts: PropTypes.func.isRequired,
-    getPosts: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -26,22 +25,13 @@ class categoriesDrawer extends Component {
   getCategoriesList = () => {
     const { categories } = this.props
     return _.map(categories, (category) => (
-      <ListItem
-        key={category.name}
-        primaryText={category.name}
-        onClick={() => this.updatePosts(category.name)}
-      />
+      <Link to={`/${category.path}`} key={category.name}>
+        <ListItem
+          primaryText={category.name}
+          onClick={() => this.updatePosts(category.name)}
+        />
+      </Link>
     ))
-  }
-
-  updatePosts(category?) {
-    const { getCategoriesPosts, getPosts, toggleDrawer } = this.props
-    if (category) {
-      getCategoriesPosts(category)
-    } else {
-      getPosts()
-    }
-    toggleDrawer()
   }
 
   render() {
@@ -56,11 +46,13 @@ class categoriesDrawer extends Component {
           }
         />
         <List>
-          <ListItem
-            key="All"
-            primaryText="All posts"
-            onClick={() => this.updatePosts()}
-          />
+          <Link to={`/`}>
+            <ListItem
+              key="All"
+              primaryText="All posts"
+              onClick={() => this.props.toggleDrawer()}
+            />
+          </Link>
           {this.getCategoriesList()}
         </List>
       </Drawer>
@@ -74,6 +66,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   getCategories,
-  getCategoriesPosts,
-  getPosts,
 })(categoriesDrawer)
