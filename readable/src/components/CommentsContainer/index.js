@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar'
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back'
 import IconButton from 'material-ui/IconButton'
 import { Link } from 'react-router-dom'
+import * as _ from 'lodash'
 import PropTypes from 'prop-types'
 import { URL, headers } from 'actions/constants'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
@@ -19,6 +20,7 @@ const Wrapper = styled.div`
 class CommentsContainer extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   state = {
@@ -29,7 +31,11 @@ class CommentsContainer extends Component {
     const id = this.props.match.params.id
     fetch(`${URL}/posts/${id}`, { headers })
       .then((res) => res.json())
-      .then((post) => this.setState({ post }))
+      .then((post) => {
+        _.isEmpty(post) && this.props.history.push('/404')
+        this.setState({ post })
+      })
+      .catch((err) => console.error('err', err))
   }
 
   render() {
