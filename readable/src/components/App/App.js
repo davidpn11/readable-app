@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import PostContainer from 'components/PostContainer'
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import CommentsContainer from 'components/CommentsContainer'
 import ActionInfo from 'material-ui/svg-icons/action/info'
 import styled from 'styled-components'
@@ -34,13 +34,15 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <Route exact path="/" render={() => <PostContainer />} />
-          <Route
-            exact
-            path="/comments/:id"
-            component={(props) => <CommentsContainer {...props} />}
-          />
-          <Route exact path="/404" component={NotFound} />
+          <Switch>
+            <Route exact path="/" render={() => <PostContainer />} />
+            <Route
+              exact
+              path="/comments/:id"
+              component={(props) => <CommentsContainer {...props} />}
+            />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </MuiThemeProvider>
     )
