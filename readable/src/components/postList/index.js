@@ -65,7 +65,7 @@ class PostList extends Component {
 
   getPostList = () => {
     let { posts, orderValue } = this.props
-    posts = _.sortBy(posts, orderValue)
+    posts = _.orderBy(posts, orderValue, 'desc')
     return _.map(posts, (post) => {
       if (!post.deleted) {
         return (
