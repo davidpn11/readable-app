@@ -36,7 +36,9 @@ class PostList extends Component {
   static propTypes = {
     posts: PropTypes.any,
     getPosts: PropTypes.func.isRequired,
+    orderValue: PropTypes.string.isRequired,
   }
+
   componentDidMount() {
     this.props.getPosts()
   }
@@ -57,13 +59,22 @@ class PostList extends Component {
     this.setState({ isModalOpen: !this.state.isModalOpen, editedPost })
   }
 
+  reorderList() {
+    this.props.orderValue === 'voteScore' && this.getPostList()
+  }
+
   getPostList = () => {
-    const { posts } = this.props
+    let { posts, orderValue } = this.props
+    posts = _.sortBy(posts, orderValue)
     return _.map(posts, (post) => {
       if (!post.deleted) {
         return (
           <PItem key={post.title}>
-            <PostItem postData={post} editPost={this.editPost} />
+            <PostItem
+              postData={post}
+              editPost={this.editPost}
+              addVote={() => this.reorderList}
+            />
           </PItem>
         )
       }
@@ -71,10 +82,11 @@ class PostList extends Component {
   }
 
   render() {
+    const posts = this.getPostList()
     return (
       <div>
         <ListWrapper>
-          <PList>{this.getPostList()}</PList>
+          <PList>{posts}</PList>
         </ListWrapper>
         <PostModal
           isOpen={this.state.isModalOpen}

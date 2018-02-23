@@ -34,6 +34,12 @@ class postItem extends Component {
     votePost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     editPost: PropTypes.func,
+    addVote: PropTypes.func,
+  }
+
+  setVote(id, value) {
+    this.props.votePost(id, value)
+    this.props.addVote()
   }
 
   render() {
@@ -98,12 +104,12 @@ class postItem extends Component {
                   style={fabStyle}
                   backgroundColor={green400}
                   mini={true}
-                  onClick={() => this.props.votePost(id, 'upVote')}
+                  onClick={() => this.setVote(id, 'upVote')}
                 >
                   <ContentAdd />
                 </FloatingActionButton>
                 <FloatingActionButton
-                  onClick={() => this.props.votePost(id, 'downVote')}
+                  onClick={() => this.setVote(id, 'downVote')}
                   backgroundColor={red400}
                   mini={true}
                 >

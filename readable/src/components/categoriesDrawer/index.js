@@ -36,7 +36,7 @@ class categoriesDrawer extends Component {
 
   render() {
     return (
-      <Drawer width={300} openSecondary={true} open={this.props.isOpen}>
+      <Drawer width={300} open={this.props.isOpen}>
         <AppBar
           title={<span>Categories</span>}
           iconElementLeft={

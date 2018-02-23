@@ -4,6 +4,8 @@ import { getCategoriesPosts } from 'actions'
 import AppBar from 'material-ui/AppBar'
 import FilterIcon from 'material-ui/svg-icons/content/filter-list'
 import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
 import CategoriesDrawer from 'components/categoriesDrawer'
 import PostList from 'components/postList'
 import { connect } from 'react-redux'
@@ -23,9 +25,14 @@ class Container extends Component {
 
   state = {
     isDrawerOpen: false,
+    order: 'timestamp',
   }
 
-  handleFilterClick = () =>
+  setOrder(order) {
+    this.state.order !== order && this.setState({ order })
+  }
+
+  handleMenuClick = () =>
     this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
   toggleDrawer = () => this.setState({ isDrawerOpen: !this.state.isDrawerOpen })
 
@@ -34,19 +41,35 @@ class Container extends Component {
       <div>
         <AppBar
           title="Readable"
-          onTitleClick={this.handleFilterClick}
-          showMenuIconButton={false}
+          onLeftIconButtonClick={this.handleMenuClick}
           iconElementRight={
-            <IconButton onClick={this.handleFilterClick}>
-              <FilterIcon />
-            </IconButton>
+            <IconMenu
+              iconButtonElement={
+                <IconButton>
+                  <FilterIcon />
+                </IconButton>
+              }
+              targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+            >
+              <MenuItem
+                primaryText="Order by date"
+                checked={this.state.order === 'timestamp'}
+                onClick={() => this.setOrder('timestamp')}
+              />
+              <MenuItem
+                primaryText="Order by votes"
+                checked={this.state.order === 'voteScore'}
+                onClick={() => this.setOrder('voteScore')}
+              />
+            </IconMenu>
           }
         />
         <CategoriesDrawer
           isOpen={this.state.isDrawerOpen}
           toggleDrawer={this.toggleDrawer}
         />
-        <PostList />
+        <PostList orderValue={this.state.order} />
       </div>
     )
   }
