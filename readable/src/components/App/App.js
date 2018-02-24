@@ -3,6 +3,7 @@ import './App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import PostContainer from 'components/PostContainer'
 import { Switch, Route } from 'react-router-dom'
+import SinglePost from 'components/SinglePost'
 import CommentsContainer from 'components/CommentsContainer'
 import ActionInfo from 'material-ui/svg-icons/action/info'
 import styled from 'styled-components'
@@ -40,6 +41,11 @@ class App extends Component {
               exact
               path="/:category"
               component={(props) => <PostContainer {...props} />}
+            />
+            <Route
+              exact
+              path="/:category/:id"
+              component={(props) => <SinglePost {...props} />}
             />
             <Route
               exact

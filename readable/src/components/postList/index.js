@@ -74,6 +74,7 @@ class PostList extends Component {
               postData={post}
               editPost={this.editPost}
               addVote={() => this.reorderList}
+              expandable={true}
             />
           </PItem>
         )
