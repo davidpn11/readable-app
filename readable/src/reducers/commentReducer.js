@@ -22,7 +22,6 @@ export default function(state = INITIAL_STATE, action) {
         return comment
       })
     case EDIT_COMMENT:
-      console.log(action.payload)
       return state.map((comment) => {
         if (comment.id === action.payload.id) {
           comment = action.payload
@@ -30,7 +29,6 @@ export default function(state = INITIAL_STATE, action) {
         return comment
       })
     case DELETE_COMMENT:
-      console.log(action)
       return state.map((comment) => {
         if (comment.id === action.payload.id) {
           comment = action.payload

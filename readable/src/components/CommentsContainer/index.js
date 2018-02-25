@@ -3,6 +3,8 @@ import AppBar from 'material-ui/AppBar'
 import BackIcon from 'material-ui/svg-icons/navigation/arrow-back'
 import IconButton from 'material-ui/IconButton'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getSinglePost } from 'actions'
 import * as _ from 'lodash'
 import PropTypes from 'prop-types'
 import { URL, headers } from 'actions/constants'
@@ -11,6 +13,8 @@ import CommentList from 'components/CommentList'
 import styled from 'styled-components'
 import { cyan100 } from 'material-ui/styles/colors'
 import PostItem from 'components/postItem'
+import PostModal from 'components/PostModal'
+
 const Wrapper = styled.div`
   width: 60%;
   margin: auto;
@@ -19,27 +23,41 @@ const Wrapper = styled.div`
 `
 class CommentsContainer extends Component {
   static propTypes = {
+    post: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    getSinglePost: PropTypes.func.isRequired,
   }
 
   state = {
-    post: {},
+    isModalOpen: false,
+    editedPost: undefined,
+  }
+
+  toggleModal = () => {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen,
+      editedPost: undefined,
+    })
   }
 
   componentDidMount() {
     const id = this.props.match.params.id
-    fetch(`${URL}/posts/${id}`, { headers })
-      .then((res) => res.json())
-      .then((post) => {
-        _.isEmpty(post) && this.props.history.push('/404')
-        this.setState({ post })
-      })
-      .catch((err) => console.error('err', err))
+    this.props.getSinglePost(id).then((data) => {
+      _.isEmpty(data.payload) && this.props.history.push('/404')
+    })
+  }
+
+  deletePost(event) {
+    this.props.history.push('/')
+  }
+
+  editPost = (editedPost) => {
+    this.setState({ isModalOpen: !this.state.isModalOpen, editedPost })
   }
 
   render() {
-    const { post } = this.state
+    const { post } = this.props
     return (
       <div>
         <AppBar
@@ -54,24 +72,28 @@ class CommentsContainer extends Component {
           }
         />
         <Wrapper>
-          {
-            //   <Card style={{ backgroundColor: cyan100 }}>
-            //   <CardHeader
-            //     title={title}
-            //     titleStyle={{ fontSize: 30 }}
-            //     subtitle={author}
-            //     subtitleStyle={{ fontSize: 20 }}
-            //   />
-            //   <CardText style={{ fontSize: 20 }}>{body}</CardText>
-            // </Card>
-          }
-          <PostItem postData={post} editPost={this.editPost} />
+          <PostModal
+            isOpen={this.state.isModalOpen}
+            toggleModal={this.toggleModal}
+            editPostData={this.state.editedPost}
+          />
+          <PostItem
+            key={post.id}
+            postData={post}
+            editPost={this.editPost}
+            parentCallback={(event) => this.deletePost(event)}
+          />
           <h2>Comments</h2>
-          <CommentList postId={this.state.post.id || ''} />
+          <CommentList postId={post.id || ''} />
         </Wrapper>
       </div>
     )
   }
 }
 
-export default CommentsContainer
+function mapStateToProps(state, ownProps) {
+  const post = state.posts[0] || {}
+  return { post }
+}
+
+export default connect(mapStateToProps, { getSinglePost })(CommentsContainer)

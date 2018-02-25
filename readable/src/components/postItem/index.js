@@ -35,8 +35,16 @@ class postItem extends Component {
     votePost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
     editPost: PropTypes.func,
-    addVote: PropTypes.func,
+    parentCallback: PropTypes.func,
     expandable: PropTypes.bool,
+  }
+
+  delete(id) {
+    this.props
+      .deletePost(id)
+      .then(
+        () => this.props.parentCallback && this.props.parentCallback('delete')
+      )
   }
 
   render() {
@@ -70,7 +78,7 @@ class postItem extends Component {
                 <ActionSpan>
                   <ActionDelete
                     color={red400}
-                    onClick={() => this.props.deletePost(id)}
+                    onClick={() => this.delete(id)}
                   />{' '}
                   <ActionEdit
                     color={blue400}
@@ -142,7 +150,7 @@ class postItem extends Component {
                   <ActionSpan>
                     <ActionDelete
                       color={red400}
-                      onClick={() => this.props.deletePost(id)}
+                      onClick={() => this.delete(id)}
                     />{' '}
                     <ActionEdit
                       color={blue400}

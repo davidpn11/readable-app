@@ -1,5 +1,6 @@
 import {
   GET_POSTS,
+  GET_SINGLE_POST,
   GET_CATEGORIES_POSTS,
   ADD_POST,
   VOTE_POST,
@@ -13,6 +14,8 @@ export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_POSTS:
       return action.payload
+    case GET_SINGLE_POST:
+      return [action.payload]
     case GET_CATEGORIES_POSTS:
       return action.payload
     case ADD_POST:
@@ -25,7 +28,6 @@ export default function(state = INITIAL_STATE, action) {
         return post
       })
     case EDIT_POST:
-      console.log(action.payload)
       return state.map((post) => {
         if (post.id === action.payload.id) {
           post = action.payload

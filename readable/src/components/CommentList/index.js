@@ -70,7 +70,6 @@ class CommentList extends Component {
       body: this.state.body,
       parentId: this.props.postId,
     }
-    console.log(comment)
     this.props.addComment(comment)
     this.setState({ body: '', author: '' })
   }
