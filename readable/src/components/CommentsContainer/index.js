@@ -10,7 +10,7 @@ import { Card, CardHeader, CardText } from 'material-ui/Card'
 import CommentList from 'components/CommentList'
 import styled from 'styled-components'
 import { cyan100 } from 'material-ui/styles/colors'
-
+import PostItem from 'components/postItem'
 const Wrapper = styled.div`
   width: 60%;
   margin: auto;
@@ -39,7 +39,7 @@ class CommentsContainer extends Component {
   }
 
   render() {
-    const { title, author, body } = this.state.post
+    const { post } = this.state
     return (
       <div>
         <AppBar
@@ -54,15 +54,18 @@ class CommentsContainer extends Component {
           }
         />
         <Wrapper>
-          <Card style={{ backgroundColor: cyan100 }}>
-            <CardHeader
-              title={title}
-              titleStyle={{ fontSize: 30 }}
-              subtitle={author}
-              subtitleStyle={{ fontSize: 20 }}
-            />
-            <CardText style={{ fontSize: 20 }}>{body}</CardText>
-          </Card>
+          {
+            //   <Card style={{ backgroundColor: cyan100 }}>
+            //   <CardHeader
+            //     title={title}
+            //     titleStyle={{ fontSize: 30 }}
+            //     subtitle={author}
+            //     subtitleStyle={{ fontSize: 20 }}
+            //   />
+            //   <CardText style={{ fontSize: 20 }}>{body}</CardText>
+            // </Card>
+          }
+          <PostItem postData={post} editPost={this.editPost} />
           <h2>Comments</h2>
           <CommentList postId={this.state.post.id || ''} />
         </Wrapper>

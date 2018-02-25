@@ -26,10 +26,7 @@ class categoriesDrawer extends Component {
     const { categories } = this.props
     return _.map(categories, (category) => (
       <Link to={`/${category.path}`} key={category.name}>
-        <ListItem
-          primaryText={category.name}
-          onClick={() => this.updatePosts(category.name)}
-        />
+        <ListItem primaryText={category.name} />
       </Link>
     ))
   }

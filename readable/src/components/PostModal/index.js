@@ -44,7 +44,7 @@ const modalStyle = {
     backgroundColor: 'rgba(30,30,30, 0.75)',
   },
   content: {
-    position: 'relative',
+    position: 'fixed',
     width: '400px',
     top: '100px',
     maxHeight: '100%',

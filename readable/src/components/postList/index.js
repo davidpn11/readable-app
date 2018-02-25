@@ -59,10 +59,6 @@ class PostList extends Component {
     this.setState({ isModalOpen: !this.state.isModalOpen, editedPost })
   }
 
-  reorderList() {
-    this.props.orderValue === 'voteScore' && this.getPostList()
-  }
-
   getPostList = () => {
     let { posts, orderValue } = this.props
     posts = _.orderBy(posts, orderValue, 'desc')
@@ -73,7 +69,7 @@ class PostList extends Component {
             <PostItem
               postData={post}
               editPost={this.editPost}
-              addVote={() => this.reorderList}
+              expandable={true}
             />
           </PItem>
         )

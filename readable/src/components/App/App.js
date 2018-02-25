@@ -46,6 +46,11 @@ class App extends Component {
               path="/comments/:id"
               component={(props) => <CommentsContainer {...props} />}
             />
+            <Route
+              exact
+              path="/:category/:id"
+              component={(props) => <CommentsContainer {...props} />}
+            />
             <Route component={NotFound} />
           </Switch>
         </div>
