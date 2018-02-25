@@ -3,6 +3,7 @@ import {
   getUUID,
   headers,
   GET_POSTS,
+  GET_SINGLE_POST,
   ADD_POST,
   VOTE_POST,
   EDIT_POST,
@@ -16,6 +17,13 @@ export function getPosts() {
       .then((data) => dispatch({ type: GET_POSTS, payload: data }))
       .catch((err) => console.error(err))
   }
+}
+//flow
+export const getSinglePost = (id: string) => (dispatch) => {
+  return fetch(`${URL}/posts/${id}`, { headers })
+    .then((res) => res.json())
+    .then((data) => dispatch({ type: GET_SINGLE_POST, payload: data }))
+    .catch((err) => console.error(err))
 }
 
 //@flow
@@ -48,19 +56,17 @@ export function addPost(postData: object) {
 }
 
 //@flow
-export function votePost(postId: string, option: string) {
-  return (dispatch) => {
-    fetch(`${URL}/posts/${postId}`, {
-      headers: headers,
-      method: 'POST',
-      body: JSON.stringify({ option }),
+export const votePost = (postId: string, option: string) => (dispatch) => {
+  return fetch(`${URL}/posts/${postId}`, {
+    headers: headers,
+    method: 'POST',
+    body: JSON.stringify({ option }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({ type: VOTE_POST, payload: data })
     })
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({ type: VOTE_POST, payload: data })
-      })
-      .catch((err) => console.error(err))
-  }
+    .catch((err) => console.error(err))
 }
 //@flow
 export function deletePost(postId: string) {

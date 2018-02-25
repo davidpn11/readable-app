@@ -25,6 +25,7 @@ export const GET_CATEGORIES_POSTS = 'GET_CATEGORIES_POSTS'
 
 //Posts
 export const GET_POSTS = 'GET_POSTS'
+export const GET_SINGLE_POST = 'GET_SINGLE_POST'
 export const ADD_POST = 'ADD_POST'
 export const VOTE_POST = 'VOTE_POST'
 export const EDIT_POST = 'EDIT_POST'
