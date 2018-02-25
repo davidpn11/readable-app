@@ -35,6 +35,7 @@ class App extends Component {
       <MuiThemeProvider>
         <div>
           <Switch>
+            <Route path="/404" component={NotFound} />
             <Route exact path="/" render={() => <PostContainer />} />
             <Route
               exact
@@ -51,7 +52,6 @@ class App extends Component {
               path="/:category/:id"
               component={(props) => <CommentsContainer {...props} />}
             />
-            <Route component={NotFound} />
           </Switch>
         </div>
       </MuiThemeProvider>
